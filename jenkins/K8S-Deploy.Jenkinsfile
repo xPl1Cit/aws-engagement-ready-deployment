@@ -18,15 +18,11 @@ pipeline {
 	stage('Install Terraform') {
             steps {
                 sh '''
-                    yum install -y yum-utils
-
-					# Add the HashiCorp repo
-					yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-
-					# Install Terraform
-					yum install -y terraform
-
-					# Confirm
+                    apt-get update && apt-get install -y curl unzip
+					TERRAFORM_VERSION=1.8.5
+					curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip
+					unzip terraform.zip
+					mv terraform /usr/local/bin/
 					terraform version
 			'''
             }
