@@ -49,7 +49,7 @@ variable "ec2_instance_type" {
 variable "desired_capacity" {
   description = "The Number of EC2 instances to be launched by default."
   type        = number
-  default = 1
+  default = 3
 }
 
 variable "min_size" {
