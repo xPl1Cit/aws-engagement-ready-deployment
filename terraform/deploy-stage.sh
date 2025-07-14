@@ -20,7 +20,7 @@ else
   echo "Using environment: $ENV"
 fi
 
-cd "./stages/$ENV" || {
+cd "./terraform/stages/$ENV" || {
   echo "❌ Directory './stages/$ENV' does not exist."
   exit 1
 }
