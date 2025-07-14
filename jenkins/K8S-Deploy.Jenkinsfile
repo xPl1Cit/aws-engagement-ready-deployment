@@ -18,11 +18,16 @@ pipeline {
 	stage('Install Terraform') {
             steps {
                 sh '''
-                    apt-get update && apt-get install -y curl unzip
-					TERRAFORM_VERSION=1.8.5
-					curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip
-					unzip terraform.zip
-					mv terraform /usr/local/bin/
+                    TERRAFORM_VERSION="1.8.5"
+					INSTALL_DIR="/opt/tools"
+
+					mkdir -p "$INSTALL_DIR"
+					curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform.zip
+					unzip -o /tmp/terraform.zip -d "$INSTALL_DIR"
+					chmod +x "$INSTALL_DIR/terraform"
+
+					export PATH="$INSTALL_DIR:$PATH"
+
 					terraform version
 			'''
             }
