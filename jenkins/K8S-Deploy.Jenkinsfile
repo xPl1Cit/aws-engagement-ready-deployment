@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                     TERRAFORM_VERSION="1.8.5"
-					INSTALL_DIR="/opt/tools"
+					INSTALL_DIR="$HOME/tools"
 
 					mkdir -p "$INSTALL_DIR"
 					curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform.zip
