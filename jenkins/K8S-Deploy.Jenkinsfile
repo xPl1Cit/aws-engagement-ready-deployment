@@ -15,7 +15,18 @@ pipeline {
             }
         }
 
-	stage('Install Terraform') {
+		stage('Install Kubectl') {
+            steps {
+                sh '''
+                    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.31.0/bin/linux/amd64/kubectl
+                    chmod +x kubectl
+                    mkdir -p $HOME/bin
+                    mv kubectl $HOME/bin/kubectl
+                '''
+            }
+        }
+
+		stage('Install Terraform') {
             steps {
                 sh '''
                     TERRAFORM_VERSION="1.8.5"
