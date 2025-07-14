@@ -1,9 +1,5 @@
 pipeline {
-     agent {
-        docker {
-            image 'hashicorp/terraform:1.8.5'
-        }
-    }
+    agent any
 
     parameters {
         string(name: 'REGION', defaultValue: 'us-east-1', description: 'AWS Region')
@@ -16,6 +12,23 @@ pipeline {
                 git branch: 'main',
                     url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
+            }
+        }
+
+	stage('Install Terraform') {
+            steps {
+                sh '''
+                    sudo yum install -y yum-utils
+
+					# Add the HashiCorp repo
+					sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+					# Install Terraform
+					sudo yum install -y terraform
+
+					# Confirm
+					terraform version
+			'''
             }
         }
         
