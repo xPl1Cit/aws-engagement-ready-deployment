@@ -48,6 +48,7 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                     
+						export PATH="$HOME/tools:\$PATH"
                         chmod +x ./terraform/deploy-stage.sh
                         ./terraform/deploy-stage.sh ${params.REGION} ${params.ENV}
 						chmod +x ./terraform/deploy-db-secret.sh
