@@ -27,7 +27,7 @@ cd "./terraform/stages/$ENV" || {
 
 # Init Terraform
 echo "🔧 Running terraform init..."
-terraform init
+terraform init -migrate-state
 
 # Apply (no prompt)
 echo "🚀 Applying terraform (auto-approve)..."
