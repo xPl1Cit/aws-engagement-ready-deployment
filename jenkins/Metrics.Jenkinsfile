@@ -45,7 +45,7 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                         
-                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-final-al-${params.ENVIRONMENT}
+                        aws eks update-kubeconfig --region ${params.REGION} --name aws-final-al-${params.ENVIRONMENT}
                     
                         chmod +x ./k8s/deploy-metrics.sh
                         ./k8s/deploy-metrics.sh

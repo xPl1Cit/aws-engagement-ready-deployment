@@ -47,7 +47,7 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                         
-                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-capstone-al-${params.ENVIRONMENT}
+                        aws eks update-kubeconfig --region ${params.REGION} --name aws-final-al-${params.ENVIRONMENT}
                     
                         chmod +x ./k8s/deploy-pods.sh
                         ./k8s/deploy-pods.sh ${params.REGION} ${params.VERSION} ${params.DEPLOYMENT_COLOR} ${params.ENVIRONMENT} angular
