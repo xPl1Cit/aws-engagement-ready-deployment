@@ -18,6 +18,8 @@ module "eks" {
     amazon-cloudwatch-observability = { most_recent = true }
   }
 
+  enable_cluster_creator_admin_permissions = true
+
   cloudwatch_log_group_retention_in_days = 7
   cluster_enabled_log_types = [
     "api", "audit", "authenticator", "controllerManager", "scheduler"
