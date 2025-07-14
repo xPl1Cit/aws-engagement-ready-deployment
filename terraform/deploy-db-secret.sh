@@ -18,7 +18,7 @@ cd "./terraform/stages/$ENV" || {
 
 # ---- Required variables ----
 AWS_REGION="${AWS_REGION:-us-east-1}"           # default region if not passed
-EKS_CLUSTER_NAME="${EKS_CLUSTER_NAME:-aws-final-al-dev}"  # default cluster name if not passed
+EKS_CLUSTER_NAME="${EKS_CLUSTER_NAME:-aws-final-al-$ENV}"  # default cluster name if not passed
 
 # ---- Setup kubectl config for the cluster ----
 echo "🔧 Setting up kubectl for cluster '$EKS_CLUSTER_NAME' in region '$AWS_REGION'..."
