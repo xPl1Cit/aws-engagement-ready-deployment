@@ -31,7 +31,7 @@ variable "db_name" {
 variable "db_username" {
   description = "The Database Username to be launched."
   type        = string
-  default = "admin"
+  default = "andreasadmin"
 }
 
 variable "db_password" {
