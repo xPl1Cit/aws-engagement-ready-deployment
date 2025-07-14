@@ -51,5 +51,5 @@ variable "max_size" {
 variable "cluster_name" {
   description = "The name of the EKS cluster."
   type        = string
-  default     = "eks-${var.project}-${var.stage}"
+  default     = "aws-training-al-dev"
 }
