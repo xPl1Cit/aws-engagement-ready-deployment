@@ -1,16 +1,11 @@
 output "public_subnet_ids" {
-  value = module.subnets.public_subnet_ids
+  value = module.vpc.public_subnets
   description = "The IDs of the public subnets"
 }
 
-output "private_db_subnet_ids" {
-  value = module.subnets.private_db_subnet_ids
-  description = "The IDs of the private db subnets"
-}
-
-output "private_app_subnet_ids" {
-  value = module.subnets.private_app_subnet_ids
-  description = "The IDs of the private app subnets"
+output "private_subnet_ids" {
+  value = module.vpc.private_subnets
+  description = "The IDs of the private subnets"
 }
 
 output "bastion_sg_id" {

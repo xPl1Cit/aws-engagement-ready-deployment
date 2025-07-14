@@ -17,3 +17,10 @@ module "vpc" {
     "kubernetes.io/cluster/${var.project}-${var.stage}" = "shared"
   }
 }
+
+module "security_groups" {
+  source = "../security_groups"
+  project = var.project
+  stage = var.stage
+  vpc_id = aws_vpc.main.id
+}

@@ -11,6 +11,19 @@ module "vpc" {
   private_db_subnet_cidrs = var.private_db_subnet_cidrs
 }
 
+module "database" {
+    source = "../database"
+    project = var.project
+    stage   = var.stage
+
+    private_db_subnet_ids = module.vpc.private_db_subnet_ids
+    rds_sg_id = module.vpc.rds_sg_id
+    db_instance_type = var.db_instance_type
+    db_name = var.db_name
+    db_username = var.db_username
+    db_password = var.db_password
+}
+
 module "key_pair" {
   source = "../compute/key-pair"
   project = var.project
