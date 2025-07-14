@@ -21,7 +21,7 @@ else
 fi
 
 cd "./terraform/stages/$ENV" || {
-  echo "❌ Directory './stages/$ENV' does not exist."
+  echo "❌ Directory './terraform/stages/$ENV' does not exist."
   exit 1
 }
 
