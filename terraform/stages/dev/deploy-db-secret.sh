@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # ---- Required variables ----
-AWS_REGION="${AWS_REGION:-eu-central-1}"           # default region if not passed
+AWS_REGION="${AWS_REGION:-us-east-1}"           # default region if not passed
 EKS_CLUSTER_NAME="${EKS_CLUSTER_NAME:-aws-final-al-dev}"  # default cluster name if not passed
 
 # ---- Setup kubectl config for the cluster ----
