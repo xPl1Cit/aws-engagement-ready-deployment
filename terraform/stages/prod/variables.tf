@@ -1,7 +1,7 @@
 variable "project" {
   description = "The AWS Project Name."
   type        = string
-  default     = "aws-training-al"
+  default     = "aws-final-al"
 }
 
 variable "region" {
@@ -13,7 +13,7 @@ variable "region" {
 variable "stage" {
   description = "The Deployment Stage."
   type        = string
-  default     = "prod"
+  default     = "dev"
 }
 
 variable "db_instance_type" {
@@ -25,31 +25,31 @@ variable "db_instance_type" {
 variable "db_name" {
   description = "The Default Database Name to be launched."
   type        = string
-  default = "wordpress"
+  default = "products"
 }
 
 variable "db_username" {
   description = "The Database Username to be launched."
   type        = string
-  default = "admin"
+  default = "andreasadmin"
 }
 
 variable "db_password" {
   description = "The Database Password to be launched."
   type        = string
-  default = "password"
+  default = "PleaseChange123!"
 }
 
 variable "ec2_instance_type" {
   description = "The EC2 Instance Type to be launched."
   type        = string
-  default = "t2.small"
+  default = "t2.medium"
 }
 
 variable "desired_capacity" {
   description = "The Number of EC2 instances to be launched by default."
   type        = number
-  default = 2
+  default = 1
 }
 
 variable "min_size" {
