@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+   app: spring
+ name: spring-{{DEPLOYMENT_COLOR}}
+spec:
+ replicas: 3
+ selector:
+   matchLabels:
+     app: spring
+     color: {{DEPLOYMENT_COLOR}}
+ template:
+   metadata:
+     labels:
+       app: spring
+       color: {{DEPLOYMENT_COLOR}}
+   spec:
+     containers:
+     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/capstone-al-spring-{{ENVIRONMENT}}:{{VERSION_TAG}}
+       name: spring
+       resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+       ports:
+       - containerPort: 8080
+       env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: backend-db-postgresql
+              key: postgres-password
+       livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+       readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 5
+        

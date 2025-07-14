@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+   app: angular
+ name: angular-{{DEPLOYMENT_COLOR}}
+spec:
+ replicas: 3
+ selector:
+   matchLabels:
+     app: angular
+     color: {{DEPLOYMENT_COLOR}}
+ template:
+   metadata:
+     labels:
+       app: angular
+       color: {{DEPLOYMENT_COLOR}}
+   spec:
+     containers:
+     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/capstone-al-angular-{{ENVIRONMENT}}:{{VERSION_TAG}}
+       name: angular
+       resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+       ports:
+       - containerPort: 80
+       livenessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 30
+        periodSeconds: 10
+       readinessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 10
+        periodSeconds: 5
