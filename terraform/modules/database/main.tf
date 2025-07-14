@@ -32,19 +32,3 @@ resource "aws_db_instance" "product" {
 
   final_snapshot_identifier = "${var.project}-product-db-snapshot-${var.stage}"
 }
-
-resource "kubernetes_secret" "db_credentials" {
-  metadata {
-    name      = "db-secret"
-    namespace = "default"
-  }
-
-  data = {
-    DB_HOST     = base64encode(aws_db_instance.product.endpoint)
-    DB_NAME     = base64encode(var.db_name)
-    DB_USER     = base64encode(var.db_username)
-    DB_PASSWORD = base64encode(var.db_password)
-  }
-
-  depends_on = [aws_db_instance.product]
-}
