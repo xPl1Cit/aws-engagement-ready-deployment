@@ -32,12 +32,18 @@ DB_USER=$(terraform output -raw rds_username)
 DB_PASSWORD=$(terraform output -raw rds_password)
 
 # ---- Create Kubernetes Secret ----
-echo "🔐 Creating Kubernetes secret 'db-secret'..."
-kubectl create secret generic db-secret \
-  --from-literal=DB_HOST="$DB_HOST" \
-  --from-literal=DB_NAME="$DB_NAME" \
-  --from-literal=DB_USER="$DB_USER" \
-  --from-literal=DB_PASSWORD="$DB_PASSWORD" \
-  -n default
+echo "🔐 Checking if Kubernetes secret 'db-secret' exists..."
 
-echo "✅ Kubernetes secret 'db-secret' created successfully."
+if kubectl get secret db-secret -n default > /dev/null 2>&1; then
+  echo "⚠️ Kubernetes secret 'db-secret' already exists. Skipping creation."
+else
+  echo "🔐 Creating Kubernetes secret 'db-secret'..."
+  kubectl create secret generic db-secret \
+    --from-literal=DB_HOST="$DB_HOST" \
+    --from-literal=DB_NAME="$DB_NAME" \
+    --from-literal=DB_USER="$DB_USER" \
+    --from-literal=DB_PASSWORD="$DB_PASSWORD" \
+    -n default
+
+  echo "✅ Kubernetes secret 'db-secret' created successfully."
+fi
