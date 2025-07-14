@@ -37,7 +37,7 @@ variable "db_username" {
 variable "db_password" {
   description = "The Database Password to be launched."
   type        = string
-  default = "password"
+  default = "PleaseChange123!"
 }
 
 variable "ec2_instance_type" {
