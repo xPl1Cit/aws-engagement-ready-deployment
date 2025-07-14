@@ -17,7 +17,7 @@ spec:
        color: {{DEPLOYMENT_COLOR}}
    spec:
      containers:
-     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/capstone-al-angular-{{ENVIRONMENT}}:{{VERSION_TAG}}
+     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/final-al-angular-{{ENVIRONMENT}}:{{VERSION_TAG}}
        name: angular
        resources:
         requests:
