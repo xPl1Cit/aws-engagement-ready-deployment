@@ -30,8 +30,10 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                     
-                        chmod +x ./k8s/deploy-cluster.sh
-                        ./k8s/deploy-cluster.sh ${params.REGION} ${params.ENV}
+                        chmod +x ./terraform/deploy-stage.sh
+                        ./terraform/deploy-stage.sh ${params.REGION} ${params.ENV}
+						chmod +x ./terraform/deploy-db-secret.sh
+                        ./terraform/deploy-db-secret.sh ${params.ENV}
                     """
                 }
             }
