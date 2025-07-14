@@ -18,7 +18,5 @@ else
   echo "Using environment: $ENV"
 fi
 
-cd ..
-cd terraform
-./deploy-stage.sh $ENV 
-./deploy-db-secret.sh $ENV 
+sh '../terraform/deploy-stage.sh $ENV'
+sh '../terraform/deploy-db-secret.sh $ENV'
