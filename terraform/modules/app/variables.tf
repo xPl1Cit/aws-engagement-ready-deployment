@@ -46,19 +46,16 @@ variable "db_instance_type" {
 variable "db_name" {
   description = "The Default Database Name to be launched."
   type        = string
-  default = "wordpress"
 }
 
 variable "db_username" {
   description = "The Database Username to be launched."
   type        = string
-  default = "admin"
 }
 
 variable "db_password" {
   description = "The Database Password to be launched."
   type        = string
-  default = "password"
 }
 
 variable "ec2_instance_type" {
