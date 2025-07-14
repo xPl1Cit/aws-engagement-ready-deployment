@@ -1,16 +1,16 @@
 output "rds_endpoint" {
-  value = aws_db_instance.product.endpoint
+  value = app.rds_endpoint
 }
 
 output "rds_db_name" {
-  value = aws_db_instance.product.db_name
+  value = app.rds_db_name
 }
 
 output "rds_username" {
-  value = aws_db_instance.product.username
+  value = app.rds_username
 }
 
 output "rds_password" {
-  value     = aws_db_instance.product.password
+  value     = app.rds_password
   sensitive = true
 }
