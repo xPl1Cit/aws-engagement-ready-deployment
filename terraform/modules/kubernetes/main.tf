@@ -3,7 +3,7 @@ module "eks" {
   version = "20.11.0"
 
   cluster_name    = var.cluster_name
-  cluster_version = "1.32"
+  cluster_version = "1.33"
   subnet_ids      = var.private_subnet_ids
   vpc_id          = var.vpc_id
 
