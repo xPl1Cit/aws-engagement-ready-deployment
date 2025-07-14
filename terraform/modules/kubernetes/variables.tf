@@ -19,7 +19,7 @@ variable "stage" {
 variable "ec2_instance_type" {
   description = "The EC2 Instance Type to be launched."
   type        = string
-  default = "t2.small"
+  default = "t2.medium"
 }
 
 variable "desired_capacity" {

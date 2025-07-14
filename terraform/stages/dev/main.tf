@@ -1,5 +1,5 @@
-module "wordpress" {
-  source  = "../../modules/wordpress"
+module "app" {
+  source  = "../../modules/app"
   project = var.project
   stage   = var.stage
   region = var.region
