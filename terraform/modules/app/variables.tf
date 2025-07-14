@@ -86,14 +86,6 @@ variable "desired_capacity" {
   description = "The Number of EC2 instances to be launched by default."
   type        = number
   default = 1
-
-  validation {
-    condition = (
-      var.desired_capacity >= var.min_size &&
-      var.desired_capacity <= var.max_size
-    )
-    error_message = "The desired_capacity must be between min_size and max_size."
-  }
 }
 
 variable "min_size" {
