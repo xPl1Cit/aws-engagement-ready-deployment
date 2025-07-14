@@ -13,7 +13,7 @@ variable "region" {
 variable "stage" {
   description = "The Deployment Stage."
   type        = string
-  default     = "dev"
+  default     = "test"
 }
 
 variable "db_instance_type" {
