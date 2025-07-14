@@ -7,7 +7,7 @@ prometheus:
         scrape_interval: 15s
         static_configs:
           - targets: ['spring-service.default.svc.cluster.local:8080']
-  service:
+  service: 
    type: LoadBalancer
 
 grafana:
