@@ -19,11 +19,21 @@ pipeline {
             steps {
                 sh '''
                     TERRAFORM_VERSION="1.8.5"
-            	    curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-           	    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-            	    chmod +x terraform
-            	    mkdir -p $HOME/bin
-            	    mv terraform $HOME/bin/terraform
+
+					# Download Terraform binary
+					curl -sSLo terraform_${TERRAFORM_VERSION}_linux_amd64.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+					# Unzip without prompt
+					unzip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+					# Make executable
+					chmod +x terraform
+
+					# Ensure target bin directory exists
+					mkdir -p "$HOME/bin"
+
+					# Move Terraform binary to target location, overwriting if necessary
+					mv -f terraform "$HOME/bin/terraform"
                 '''
             }
         }
