@@ -10,14 +10,14 @@ resource "aws_db_subnet_group" "product" {
 resource "aws_db_instance" "product" {
   identifier        = "${var.project}-product-db-${var.stage}"
   engine            = "postgres"
-  engine_version    = "16.2"
+  engine_version    = "14.1"
   instance_class    = var.db_instance_type 
   allocated_storage = 20
   max_allocated_storage = 100
   db_subnet_group_name = aws_db_subnet_group.product.name
   vpc_security_group_ids = [ var.rds_sg_id ]
   multi_az          = true 
-  storage_type      = "gp2"
+  storage_type      = "gp3"
   publicly_accessible = false 
   username          = var.db_username
   password          = var.db_password
