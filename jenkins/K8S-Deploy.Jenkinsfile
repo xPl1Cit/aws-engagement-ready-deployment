@@ -14,6 +14,19 @@ pipeline {
                     credentialsId: 'github-token'
             }
         }
+
+	stage('Install Terraform') {
+            steps {
+                sh '''
+                    TERRAFORM_VERSION="1.8.5"
+            	    curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+           	    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+            	    chmod +x terraform
+            	    mkdir -p $HOME/bin
+            	    mv terraform $HOME/bin/terraform
+                '''
+            }
+        }
         
         stage('Provision EKS Cluster') {
             steps {
