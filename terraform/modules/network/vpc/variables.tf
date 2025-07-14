@@ -28,12 +28,7 @@ variable "public_subnet_cidrs" {
   type = list(string)
 }
 
-variable "private_app_subnet_cidrs" {
-  description = "The CIDRs used for private app subnets."
-  type = list(string)
-}
-
-variable "private_db_subnet_cidrs" {
-  description = "The CIDRs used for private db subnets."
+variable "private_subnet_cidrs" {
+  description = "The CIDRs used for private subnets."
   type = list(string)
 }

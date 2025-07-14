@@ -53,3 +53,13 @@ variable "cluster_name" {
   type        = string
   default     = "aws-training-al-dev"
 }
+
+variable "vpc_id" {
+  description = "The ID of the VPC"
+  type        = string
+}
+
+variable "private_subnet_ids" {
+  description = "The ID of the VPC's private subnets"
+  type        = string
+}

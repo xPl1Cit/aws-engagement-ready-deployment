@@ -4,8 +4,8 @@ module "eks" {
 
   cluster_name    = var.cluster_name
   cluster_version = "1.32"
-  subnet_ids      = module.vpc.private_subnet_ids
-  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = var.private_subnet_ids
+  vpc_id          = var.vpc_id
 
   cluster_endpoint_public_access = true
   enable_irsa                    = true
