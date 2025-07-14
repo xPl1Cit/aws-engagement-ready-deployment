@@ -60,6 +60,8 @@ pipeline {
                         aws sts get-caller-identity
                     
 						export PATH="$HOME/tools:\$PATH"
+						export PATH="$HOME/bin:\$PATH"
+						export PATH="$HOME/bin/kubectl:\$PATH"
                         chmod +x ./terraform/deploy-stage.sh
                         ./terraform/deploy-stage.sh ${params.REGION} ${params.ENV}
 						chmod +x ./terraform/deploy-db-secret.sh
