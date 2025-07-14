@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+     agent {
+        docker {
+            image 'hashicorp/terraform:1.8.5'
+        }
+    }
 
     parameters {
         string(name: 'REGION', defaultValue: 'us-east-1', description: 'AWS Region')
@@ -12,26 +16,6 @@ pipeline {
                 git branch: 'main',
                     url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
-            }
-        }
-
-	stage('Install Terraform') {
-            steps {
-                sh '''
-                    TERRAFORM_VERSION="1.8.5"
-					INSTALL_DIR="$HOME/bin"
-
-					# Ensure the install directory exists
-					mkdir -p "$INSTALL_DIR"
-
-					# Download and unzip directly into target directory
-					curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform.zip
-					unzip -o /tmp/terraform.zip -d "$INSTALL_DIR"
-
-					# Make sure it's executable
-					chmod +x "$INSTALL_DIR/terraform"
-            		export PATH="$INSTALL_DIR:$PATH"
-                '''
             }
         }
         
