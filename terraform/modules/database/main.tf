@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "product" {
 resource "aws_db_instance" "product" {
   identifier        = "${var.project}-product-db-${var.stage}"
   engine            = "postgres"
-  engine_version    = "14.1"
+  engine_version    = "17.4"
   instance_class    = var.db_instance_type 
   allocated_storage = 20
   max_allocated_storage = 100
