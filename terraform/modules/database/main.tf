@@ -32,12 +32,3 @@ resource "aws_db_instance" "product" {
 
   final_snapshot_identifier = "${var.project}-product-db-snapshot-${var.stage}"
 }
-
-resource "aws_db_subnet_group" "product" {
-  name        = "${var.project}-product-db-subnet-group-${var.stage}"
-  subnet_ids  = var.private_db_subnet_ids
-
-  tags = {
-    Name = "${var.project}-product-db-subnet-group-${var.stage}"
-  }
-}

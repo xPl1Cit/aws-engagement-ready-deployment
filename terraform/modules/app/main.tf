@@ -16,7 +16,7 @@ module "database" {
     project = var.project
     stage   = var.stage
 
-    private_db_subnet_ids = module.vpc.private_db_subnet_ids
+    private_db_subnet_ids = module.vpc.private_subnet_ids
     rds_sg_id = module.vpc.rds_sg_id
     db_instance_type = var.db_instance_type
     db_name = var.db_name
