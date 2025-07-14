@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket = "final-aws-al-terraform-state"
-    key    = "eks/cluster/terraform.tfstate"
+    key    = "eks/cluster/terraform-dev.tfstate"
     region = "us-east-1"
     encrypt = true
   }
