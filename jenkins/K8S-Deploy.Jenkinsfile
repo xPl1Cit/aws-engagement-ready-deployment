@@ -30,6 +30,7 @@ pipeline {
 
 					# Make sure it's executable
 					chmod +x "$INSTALL_DIR/terraform"
+            		export PATH="$INSTALL_DIR:$PATH"
                 '''
             }
         }
