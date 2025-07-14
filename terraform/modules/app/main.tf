@@ -1,5 +1,5 @@
-module "vpc" {
-  source  = "../../modules/network/vpc"
+module "app_vpc" {
+  source  = "../network/vpc"
   project = var.project
   stage   = var.stage
   region = var.region
@@ -35,8 +35,8 @@ module "bastion" {
   project = var.project
   stage = var.stage
 
-  bastion_security_group_id = module.vpc.bastion_sg_id
-  public_subnet_ids = module.vpc.public_subnet_ids
+  bastion_security_group_id = module.app_vpc.bastion_sg_id
+  public_subnet_ids = module.app_vpc.public_subnet_ids
   ami = var.bastion_ami
   instance_type = var.bastion_instance_type
   key_name = module.key_pair.key_name
