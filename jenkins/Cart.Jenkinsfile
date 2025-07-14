@@ -7,6 +7,8 @@ pipeline {
 
     parameters {
         string(name: 'REGION', defaultValue: 'us-east-1', description: 'AWS Region')
+        string(name: 'VERSION', defaultValue: 'latest', description: 'Build version')
+        string(name: 'DEPLOYMENT_COLOR', defaultValue: 'blue', description: 'Blue Green Deployment Model')
         string(name: 'ENVIRONMENT', defaultValue: 'test', description: 'Environment (e.g., test, prod)')
     }
 
@@ -14,7 +16,7 @@ pipeline {
         stage('Pull GitHub Repo'){
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/xPl1Cit/aws-training-devops-k8s',
+                    url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
             }
         }
@@ -30,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Provision EKS Cluster') {
+        stage('Provision Pod') {
             steps {
                 withCredentials([
                     usernamePassword(
@@ -45,10 +47,10 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                         
-                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-capstone-al-${params.ENVIRONMENT}
+                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-final-al-${params.ENVIRONMENT}
                     
-                        chmod +x ./deploy-database.sh
-                        ./deploy-database.sh
+                        chmod +x ./k8s/deploy-pods.sh
+                        ./k8s/deploy-pods.sh ${params.REGION} ${params.VERSION} ${params.DEPLOYMENT_COLOR} ${params.ENVIRONMENT} cart
                     """
                 }
             }

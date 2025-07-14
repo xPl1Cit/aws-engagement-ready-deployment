@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
  labels:
-   app: spring
- name: spring-{{DEPLOYMENT_COLOR}}
+   app: product
+ name: product-{{DEPLOYMENT_COLOR}}
 spec:
  replicas: 3
  selector:
    matchLabels:
-     app: spring
+     app: product
      color: {{DEPLOYMENT_COLOR}}
  template:
    metadata:
      labels:
-       app: spring
+       app: product
        color: {{DEPLOYMENT_COLOR}}
    spec:
      containers:
-     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/capstone-al-spring-{{ENVIRONMENT}}:{{VERSION_TAG}}
-       name: spring
+     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/final-al-product-service-{{ENVIRONMENT}}:{{VERSION_TAG}}
+       name: product
        resources:
         requests:
           cpu: "100m"
@@ -28,12 +28,6 @@ spec:
           memory: "512Mi"
        ports:
        - containerPort: 8080
-       env:
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: backend-db-postgresql
-              key: postgres-password
        livenessProbe:
             httpGet:
               path: /actuator/health

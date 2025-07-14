@@ -10,7 +10,7 @@ pipeline {
         stage('Pull GitHub Repo'){
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/xPl1Cit/aws-training-devops-k8s',
+                    url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
             }
         }
@@ -30,8 +30,8 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                     
-                        chmod +x ./deploy-cluster.sh
-                        ./deploy-cluster.sh ${params.REGION} ${params.ENV}
+                        chmod +x ./k8s/deploy-cluster.sh
+                        ./k8s/deploy-cluster.sh ${params.REGION} ${params.ENV}
                     """
                 }
             }
@@ -47,22 +47,24 @@ pipeline {
 						  ],
 						  wait: true
 				}
-				
-				script {
-					build job: 'Deploy Database',
-						  parameters: [
-							  string(name: 'REGION', value: "${REGION}"),
-							  string(name: 'ENVIRONMENT', value: "${ENV}")
-						  ],
-						  wait: true
-				}
 			}
 		}
 		
 		stage('Deploy Images') {
 			steps {
 				script {
-					build job: 'Deploy Spring',
+					build job: 'Deploy Product',
+						  parameters: [
+							  string(name: 'REGION', value: "${REGION}"),
+							  string(name: 'VERSION', value: "latest"),
+							  string(name: 'DEPLOYMENT_COLOR', value: "blue"),
+							  string(name: 'ENVIRONMENT', value: "${ENV}")
+						  ],
+						  wait: true
+				}
+
+				script {
+					build job: 'Deploy Cart',
 						  parameters: [
 							  string(name: 'REGION', value: "${REGION}"),
 							  string(name: 'VERSION', value: "latest"),

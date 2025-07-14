@@ -1,10 +1,9 @@
 terraform {
-  cloud {
-    organization = "aws-final-al"
-
-    workspaces {
-      name = "AWS-Final-Project-AL"
-    }
+  backend "s3" {
+    bucket = "final-aws-al-terraform-state"
+    key    = "eks/cluster/terraform.tfstate"
+    region = "us-east-1"
+    encrypt = true
   }
 
   required_providers {

@@ -1,0 +1,1 @@
+aws s3api create-bucket --bucket final-al-terraform-state --region us-east-1

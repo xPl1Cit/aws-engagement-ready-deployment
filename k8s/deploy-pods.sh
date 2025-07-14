@@ -25,8 +25,10 @@ echo "AWS Account ID: $ACCOUNT_ID"
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 ANGULAR_TEMPLATE="$SCRIPT_DIR/deployment/angular-deployment-template.yaml"
 ANGULAR_CONFIG="$SCRIPT_DIR/deployment/angular-deployment.yaml"
-SPRING_TEMPLATE="$SCRIPT_DIR/deployment/spring-deployment-template.yaml"
-SPRING_CONFIG="$SCRIPT_DIR/deployment/spring-deployment.yaml"
+CART_TEMPLATE="$SCRIPT_DIR/deployment/cart-deployment-template.yaml"
+CART_CONFIG="$SCRIPT_DIR/deployment/cart-deployment.yaml"
+PRODUCT_TEMPLATE="$SCRIPT_DIR/deployment/product-deployment-template.yaml"
+PRODUCT_CONFIG="$SCRIPT_DIR/deployment/product-deployment.yaml"
 
 # Function to process template
 process_template() {
@@ -43,10 +45,24 @@ process_template() {
 # Deploy based on APP_SELECTION
 case "$APP_SELECTION" in
   spring)
-    echo "Deploying only Spring pod..."
-    process_template "$SPRING_TEMPLATE" "$SPRING_CONFIG"
-    kubectl apply -f "$SPRING_CONFIG"
-    rm "$SPRING_CONFIG"
+    echo "Deploying only Spring pods..."
+    process_template "$CART_TEMPLATE" "$CART_CONFIG"
+    process_template "$PRODUCT_TEMPLATE" "$PRODUCT_CONFIG"
+    kubectl apply -f "$CART_CONFIG"
+    kubectl apply -f "$PRODUCT_CONFIG"
+    rm "$CART_CONFIG" "$PRODUCT_CONFIG"
+    ;;
+  cart)
+    echo "Deploying only Cart pod..."
+    process_template "$CART_TEMPLATE" "$CART_CONFIG"
+    kubectl apply -f "$CART_CONFIG"
+    rm "$CART_CONFIG"
+    ;;
+  product)
+    echo "Deploying only Product pod..."
+    process_template "$PRODUCT_TEMPLATE" "$PRODUCT_CONFIG"
+    kubectl apply -f "$PRODUCT_CONFIG"
+    rm "$PRODUCT_CONFIG"
     ;;
   angular)
     echo "Deploying only Angular pod..."
@@ -57,10 +73,12 @@ case "$APP_SELECTION" in
   *)
     echo "Deploying both Angular and Spring pods..."
     process_template "$ANGULAR_TEMPLATE" "$ANGULAR_CONFIG"
-    process_template "$SPRING_TEMPLATE" "$SPRING_CONFIG"
+    process_template "$CART_TEMPLATE" "$CART_CONFIG"
+    process_template "$PRODUCT_TEMPLATE" "$PRODUCT_CONFIG"
     kubectl apply -f "$ANGULAR_CONFIG"
-    kubectl apply -f "$SPRING_CONFIG"
-    rm "$ANGULAR_CONFIG" "$SPRING_CONFIG"
+    kubectl apply -f "$CART_CONFIG"
+    kubectl apply -f "$PRODUCT_CONFIG"
+    rm "$ANGULAR_CONFIG" "$CART_CONFIG" "$PRODUCT_CONFIG"
     ;;
 esac
 

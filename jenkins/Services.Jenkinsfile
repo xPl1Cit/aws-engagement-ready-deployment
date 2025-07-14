@@ -15,7 +15,7 @@ pipeline {
         stage('Pull GitHub Repo'){
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/xPl1Cit/aws-training-devops-k8s',
+                    url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
             }
         }
@@ -46,12 +46,12 @@ pipeline {
                         aws configure set region ${params.REGION}
                         aws sts get-caller-identity
                         
-                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-capstone-al-${params.ENVIRONMENT}
+                        aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-final-al-${params.ENVIRONMENT}
                     
-                        chmod +x ./deploy-service.sh
-                        ./deploy-service.sh ${params.DEPLOYMENT_COLOR}
-                        chmod +x ./deploy-autoscaling.sh
-                        ./deploy-autoscaling.sh
+                        chmod +x ./k8s/deploy-service.sh
+                        ./k8s/deploy-service.sh ${params.DEPLOYMENT_COLOR}
+                        chmod +x ./k8s/deploy-autoscaling.sh
+                        ./k8s/deploy-autoscaling.sh
                     """
                 }
             }

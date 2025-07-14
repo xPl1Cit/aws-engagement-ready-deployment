@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+   app: cart
+ name: cart-{{DEPLOYMENT_COLOR}}
+spec:
+ replicas: 3
+ selector:
+   matchLabels:
+     app: cart
+     color: {{DEPLOYMENT_COLOR}}
+ template:
+   metadata:
+     labels:
+       app: cart
+       color: {{DEPLOYMENT_COLOR}}
+   spec:
+     containers:
+     - image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/final-al-cart-service-{{ENVIRONMENT}}:{{VERSION_TAG}}
+       name: cart
+       resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+       ports:
+       - containerPort: 8080
+       livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+       readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 5
+        

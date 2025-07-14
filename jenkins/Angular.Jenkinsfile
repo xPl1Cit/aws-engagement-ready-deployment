@@ -16,7 +16,7 @@ pipeline {
         stage('Pull GitHub Repo'){
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/xPl1Cit/aws-training-devops-k8s',
+                    url: 'https://github.com/xPl1Cit/aws-engagement-ready-deployment',
                     credentialsId: 'github-token'
             }
         }
@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Provision EKS Cluster') {
+        stage('Provision Pod') {
             steps {
                 withCredentials([
                     usernamePassword(
@@ -49,8 +49,8 @@ pipeline {
                         
                         aws eks update-kubeconfig --region ${params.REGION} --name eks-cluster-capstone-al-${params.ENVIRONMENT}
                     
-                        chmod +x ./deploy-pods.sh
-                        ./deploy-pods.sh ${params.REGION} ${params.VERSION} ${params.DEPLOYMENT_COLOR} ${params.ENVIRONMENT} angular
+                        chmod +x ./k8s/deploy-pods.sh
+                        ./k8s/deploy-pods.sh ${params.REGION} ${params.VERSION} ${params.DEPLOYMENT_COLOR} ${params.ENVIRONMENT} angular
                     """
                 }
             }
