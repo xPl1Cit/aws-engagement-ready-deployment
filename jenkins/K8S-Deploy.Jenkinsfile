@@ -129,5 +129,14 @@ pipeline {
 				}
 			}
 		}
+
+		stage('Provision Cache') {
+			steps {
+				script {
+					build job: 'Deploy Cache',
+						  wait: true
+				}
+			}
+		}
     }
 }

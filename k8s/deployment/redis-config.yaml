@@ -1,0 +1,27 @@
+global:
+  storageClass: "standard"  # adjust to your Kubernetes storage class
+
+architecture: standalone  # or 'replication' if you want master-slave setup
+
+usePassword: true
+password: "MyStrongPasswordForRedis123!"
+
+master:
+  persistence:
+    enabled: true
+    size: 8Gi  # adjust size as needed
+
+metrics:
+  enabled: true  # enable Redis metrics exporter
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9121"
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 250m
